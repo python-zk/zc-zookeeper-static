@@ -1,0 +1,7 @@
+include setup.py
+include README.txt
+include ORIGINAL-README
+include LICENSE
+include c.tgz
+include pyzk_docstrings.h
+include zookeeper.c

@@ -1,0 +1,19 @@
+Creating a self-contained source release of the Zookeeper Python Binding
+========================================================================
+
+These instructions will likely need to be updated as the zookeeper
+Python bindng evolves.
+
+Run the script ``get_source_files.py`` passing the name of a directory
+containing an unpacked spource distribution.  For example::
+
+   python get_source_files.py ~/s/zookeeper-3.3.3
+
+Hack the script if necessary. :)
+
+Run setup with setuptools (or distutils) in the path::
+
+   python setup.py sdist
+
+Publish the resulting source distribution.
+
