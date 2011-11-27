@@ -3,8 +3,15 @@ import shutil
 import sys
 
 def main():
-    [srcdir] = sys.argv[1:]
     here = os.getcwd()
+
+    [tarball] = sys.argv[1:]
+    os.system('rm -rf zookeeper-sources')
+    os.mkdir('zookeeper-sources')
+    os.chdir('zookeeper-sources')
+    os.system('tar xzf ' + tarball)
+    [srcdir] = os.listdir('.')
+
     if os.path.exists(os.path.join(here, 'src')):
         shutil.rmtree(os.path.join(here, 'src'))
     os.mkdir(os.path.join(here, 'src'))
