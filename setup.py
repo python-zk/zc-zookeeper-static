@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name, version = 'zookeeper-static', '3.3.3a1'
+name, version = 'zc-zookeeper-static', '3.3.3a1'
 
 install_requires = ['setuptools']
 extras_require = dict(test=[])
@@ -24,7 +24,6 @@ entry_points = """
 
 import distutils.command.build_ext
 import distutils.core
-import setuptools
 import os
 import shutil
 import time
@@ -47,30 +46,42 @@ class build_ext(distutils.command.build_ext.build_ext):
 
         distutils.command.build_ext.build_ext.run(self)
 
-import setuptools.command.test
-class Test(setuptools.command.test.test):
-    def run(self):
-        import socket
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.settimeout(1.0)
-        ruok = None
-        try:
-            s.connect(('localhost', 22182))
-            s.send('ruok')
-            ruok = s.recv(4)
-        except socket.error:
-            pass
-        if ruok != 'imok':
-            raise SystemError(
-                'You must be running a testing ZooKeeper server on port 22182')
+cmdclass = dict(build_ext = build_ext)
 
-        os.environ["ZKPY_LOG_DIR"] = '.'
-        setuptools.command.test.test.run(self)
+try:
+    import setuptools
+except ImportError:
+    from distutils.core import setup
+else:
+    from setuptools import setup
 
-import sys
-sys.path.append('src')
+    import setuptools.command.test
+    class Test(setuptools.command.test.test):
+        def run(self):
+            import socket
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.settimeout(1.0)
+            ruok = None
+            try:
+                s.connect(('localhost', 22182))
+                s.send('ruok')
+                ruok = s.recv(4)
+            except socket.error:
+                pass
+            if ruok != 'imok':
+                raise SystemError(
+                    'You must be running a testing ZooKeeper server '
+                    'on port 22182')
 
-setuptools.setup(
+            os.environ["ZKPY_LOG_DIR"] = '.'
+            setuptools.command.test.test.run(self)
+
+        import sys
+        sys.path.append('src')
+
+    cmdclass.update(test=Test)
+
+setup(
     author = 'Henry Robinson',
     author_email = 'henry@cloudera.com',
     license = 'Apache',
@@ -78,7 +89,7 @@ setuptools.setup(
     name = name, version = version,
     long_description=open('README.txt').read(),
     description = open('README.txt').read().strip().split('\n')[0],
-    cmdclass=dict(build_ext=build_ext, test=Test),
+    cmdclass=cmdclass,
     test_suite = 'zookeepertests',
     ext_modules=[
         distutils.core.Extension(
