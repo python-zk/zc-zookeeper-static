@@ -24,6 +24,7 @@ entry_points = """
 
 import distutils.command.build_ext
 import distutils.core
+import setuptools
 import os
 import shutil
 import time
@@ -46,7 +47,30 @@ class build_ext(distutils.command.build_ext.build_ext):
 
         distutils.command.build_ext.build_ext.run(self)
 
-distutils.core.setup(
+import setuptools.command.test
+class Test(setuptools.command.test.test):
+    def run(self):
+        import socket
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(1.0)
+        ruok = None
+        try:
+            s.connect(('localhost', 22182))
+            s.send('ruok')
+            ruok = s.recv(4)
+        except socket.error:
+            pass
+        if ruok != 'imok':
+            raise SystemError(
+                'You must be running a testing ZooKeeper server on port 22182')
+
+        os.environ["ZKPY_LOG_DIR"] = '.'
+        setuptools.command.test.test.run(self)
+
+import sys
+sys.path.append('src')
+
+setuptools.setup(
     author = 'Henry Robinson',
     author_email = 'henry@cloudera.com',
     license = 'Apache',
@@ -54,7 +78,8 @@ distutils.core.setup(
     name = name, version = version,
     long_description=open('README.txt').read(),
     description = open('README.txt').read().strip().split('\n')[0],
-    cmdclass={'build_ext': build_ext},
+    cmdclass=dict(build_ext=build_ext, test=Test),
+    test_suite = 'zookeepertests',
     ext_modules=[
         distutils.core.Extension(
             "zookeeper",

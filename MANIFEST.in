@@ -5,3 +5,5 @@ include LICENSE
 include c.tgz
 include pyzk_docstrings.h
 include zookeeper.c
+include src/zookeepertests/*
+
