@@ -16,4 +16,3 @@ Run setup with setuptools (or distutils) in the path::
    python setup.py sdist
 
 Publish the resulting source distribution.
-
