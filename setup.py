@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name, version = 'zc-zookeeper-static', '3.3.5'
+name, version = 'zc-zookeeper-static', '0'
 
 install_requires = ['setuptools']
 extras_require = dict(test=[])
