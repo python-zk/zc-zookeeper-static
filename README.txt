@@ -13,3 +13,6 @@ If you have setuptools or distribute in your python path, then you can
 use the ``setup.py test`` command to run the tests.  Note, however,
 that the tests require that a testing ZooKeeper server be running on
 port 22182 of the local machine.
+
+You can find the source code of this distribution at
+http://svn.zope.org/repos/main/zc-zookeeper-static/trunk/
