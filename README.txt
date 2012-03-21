@@ -4,7 +4,7 @@ ZooKeeper Python bindings
 This is a self-contained distribution of the ZooKeeper Python
 bindings. It should build on any unix-like system by just running the
 ``setup.py`` script or using an install tool like pip, easy_install or
-buildout. (Windows patches to the setup script are welcomne. :)
+buildout. (Windows patches to the setup script are welcome. :)
 
 For more information **except** building instructions, see the file
 ORIGINAL-README included in the source distribution.
