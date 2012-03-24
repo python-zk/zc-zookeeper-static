@@ -85,10 +85,11 @@ setup(
     author = 'Henry Robinson',
     author_email = 'henry@cloudera.com',
     license = 'Apache',
-
-    name = name, version = version,
+    name=name,
+    version=version,
     long_description=open('README.txt').read(),
     description = open('README.txt').read().strip().split('\n')[0],
+    url='http://pypi.python.org/pypi/zc-zookeeper-static',
     cmdclass=cmdclass,
     test_suite = 'zookeepertests',
     ext_modules=[
