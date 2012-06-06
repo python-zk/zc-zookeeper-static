@@ -20,3 +20,8 @@ Run setup with setuptools (or distutils) in the path::
    python setup.py sdist
 
 Publish the resulting source distribution.
+
+Don't forget to tag the commit and push the changes and the tags. You can
+clean up the local directory via::
+
+    git clean -fd
