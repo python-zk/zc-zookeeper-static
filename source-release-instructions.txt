@@ -13,6 +13,8 @@ distribution. For example::
 
 Hack the script if necessary. :)
 
+Update version in setup.py.
+
 Run setup with setuptools (or distutils) in the path::
 
    python setup.py sdist
