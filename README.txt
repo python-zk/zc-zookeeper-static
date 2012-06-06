@@ -20,6 +20,18 @@ https://github.com/python-zk/zc-zookeeper-static
 Changelog
 =========
 
+3.4.3-3 (2012-06-06)
+--------------------
+
+Based on Zookeeper 3.4.3.
+
+- Include patch https://issues.apache.org/jira/browse/ZOOKEEPER-1318:
+  In Python binding, get_children (and get and exists, and probably others)
+  with expired session doesn't raise exception properly.
+
+- Include patch https://issues.apache.org/jira/browse/ZOOKEEPER-1431:
+  zkpython: async calls leak memory
+
 3.4.3 (2012-04-20)
 ------------------
 
