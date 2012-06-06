@@ -7,7 +7,9 @@ Python binding evolves.
 Run the script ``get_source_files.py`` passing the path to a Zookeeper source
 distribution. For example::
 
-   python get_source_files.py ~/s/zookeeper-3.3.5.tar.gz
+   curl http://apache.osuosl.org/zookeeper/zookeeper-3.4.3/zookeeper-3.4.3.tar.gz > /tmp/zookeeper-3.4.3.tar.gz
+
+   python get_source_files.py /tmp/zookeeper-3.4.3.tar.gz
 
 Hack the script if necessary. :)
 
