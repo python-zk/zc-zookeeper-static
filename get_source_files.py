@@ -6,6 +6,7 @@ def main():
     here = os.getcwd()
 
     [tarball] = sys.argv[1:]
+    use_patch = '3.4.3' in tarball
     os.system('rm -rf zookeeper-sources')
     os.mkdir('zookeeper-sources')
     os.chdir('zookeeper-sources')
@@ -21,6 +22,11 @@ def main():
     os.chdir(os.path.join('contrib', 'zkpython'))
     shutil.copy('README', os.path.join(here, 'ORIGINAL-README'))
     os.chdir(os.path.join('src'))
+
+    if use_patch:
+        shutil.copy(os.path.join(here, 'zookeeper_patched_343.c'),
+                    os.path.join('c', 'zookeeper.c'))
+
     shutil.copytree('test', os.path.join(here, 'src', 'zookeepertests'))
     open(os.path.join(here, 'src', 'zookeepertests', '__init__.py'),
          'w').close()
@@ -38,7 +44,6 @@ def main():
     else:
         connection_test = connection_test.replace('testmanyhandles',
                                                   'disabledtestmanyhandles')
-
 
     f.write(connection_test)
     f.close()
