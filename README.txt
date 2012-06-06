@@ -15,4 +15,12 @@ that the tests require that a testing ZooKeeper server be running on
 port 22182 of the local machine.
 
 You can find the source code of this distribution at
-http://svn.zope.org/repos/main/zc-zookeeper-static/trunk/
+https://github.com/python-zk/zc-zookeeper-static
+
+Changelog
+=========
+
+3.4.3 (2012-04-20)
+------------------
+
+Based on Zookeeper 3.4.3.
