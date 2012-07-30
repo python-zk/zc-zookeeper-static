@@ -36,3 +36,8 @@ Based on Zookeeper 3.4.3.
 ------------------
 
 Based on Zookeeper 3.4.3.
+
+3.3.5 (2012-03-24)
+------------------
+
+Based on Zookeeper 3.3.5.
