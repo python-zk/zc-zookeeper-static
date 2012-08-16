@@ -20,6 +20,14 @@ https://github.com/python-zk/zc-zookeeper-static
 Changelog
 =========
 
+3.4.3-4 (unreleased)
+--------------------
+
+Based on Zookeeper 3.4.3.
+
+- Include patch https://issues.apache.org/jira/browse/ZOOKEEPER-1339:
+  C client didn't build with `--enable-debug`.
+
 3.4.3-3 (2012-06-06)
 --------------------
 
