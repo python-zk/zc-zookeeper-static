@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-version = '3.4.3-4'
+version = '3.4.3-5'
 
 import distutils.command.build_ext
 import distutils.core
