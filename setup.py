@@ -14,13 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name, version = 'zc-zookeeper-static', '3.4.3-4'
-
-install_requires = ['setuptools']
-extras_require = dict(test=[])
-
-entry_points = """
-"""
+version = '3.4.3-4'
 
 import distutils.command.build_ext
 import distutils.core
@@ -28,10 +22,12 @@ import os
 import shutil
 import time
 
+
 def do_system(cmd):
     print cmd
     if os.system(cmd):
         raise SystemError("Failed: %s" % cmd)
+
 
 class build_ext(distutils.command.build_ext.build_ext):
 
@@ -46,7 +42,7 @@ class build_ext(distutils.command.build_ext.build_ext):
 
         distutils.command.build_ext.build_ext.run(self)
 
-cmdclass = dict(build_ext = build_ext)
+cmdclass = dict(build_ext=build_ext)
 
 try:
     import setuptools
@@ -56,6 +52,7 @@ else:
     from setuptools import setup
 
     import setuptools.command.test
+
     class Test(setuptools.command.test.test):
         def run(self):
             import socket
@@ -82,16 +79,16 @@ else:
     cmdclass.update(test=Test)
 
 setup(
-    author = 'Henry Robinson',
-    author_email = 'henry@cloudera.com',
-    license = 'Apache',
-    name=name,
+    author='Henry Robinson',
+    author_email='henry@cloudera.com',
+    license='Apache',
+    name='zc-zookeeper-static',
     version=version,
     long_description=open('README.rst').read(),
     description='ZooKeeper Python bindings',
     url='http://pypi.python.org/pypi/zc-zookeeper-static',
     cmdclass=cmdclass,
-    test_suite = 'zookeepertests',
+    test_suite='zookeepertests',
     ext_modules=[
         distutils.core.Extension(
             "zookeeper",
@@ -99,7 +96,6 @@ setup(
             include_dirs=["c/include",
                           "c/generated"],
             extra_objects=["c/.libs/libzookeeper_mt.a"],
-            )
-        ],
-    )
-
+        )
+    ],
+)
