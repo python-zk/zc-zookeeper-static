@@ -23,6 +23,10 @@ Changelog
 3.4.3-5 (unreleased)
 --------------------
 
+Based on Zookeeper 3.4.3.
+
+- Include patch https://issues.apache.org/jira/browse/ZOOKEEPER-1398:
+  zkpython corrupts session passwords that contain nulls.
 
 3.4.3-4 (2012-08-16)
 --------------------

@@ -589,7 +589,8 @@ static PyObject *pyzookeeper_init(PyObject *self, PyObject *args)
   //  int clientid = -1;
   clientid_t cid;
   cid.client_id = -1;
-  const char *passwd;
+  const char *passwd = NULL;
+  unsigned int passwd_len = 0;
   int handle = next_zhandle();
   if (handle == -1) {
     if (resize_zhandles() == 0) {
@@ -603,11 +604,15 @@ static PyObject *pyzookeeper_init(PyObject *self, PyObject *args)
     return NULL;
   }
 
-  if (!PyArg_ParseTuple(args, "s|Oi(Ls)", &host, &watcherfn, &recv_timeout, &cid.client_id, &passwd)) 
+  if (!PyArg_ParseTuple(args, "s|Oi(Ls#)", &host, &watcherfn, &recv_timeout, &cid.client_id, &passwd, &passwd_len))
     return NULL;
-  
+
   if (cid.client_id != -1) {
-    strncpy(cid.passwd, passwd, 16*sizeof(char));
+    if (passwd_len != 16) {
+      PyErr_SetString(BadArgumentsException, "Session password should be 16 bytes long");
+      return NULL;
+    }
+    memcpy(cid.passwd, passwd, 16*sizeof(char));
   }
   pywatcher_t *pyw = NULL;
   if (watcherfn != Py_None) {
@@ -1292,7 +1297,7 @@ PyObject *pyzoo_client_id(PyObject *self, PyObject *args)
   }
   CHECK_ZHANDLE(zkhid);
   const clientid_t *cid = zoo_client_id(zhandles[zkhid]);
-  return Py_BuildValue("(L,s)", cid->client_id, cid->passwd);
+  return Py_BuildValue("(L,s#)", cid->client_id, cid->passwd, 16);
 }
 
 /* DO NOT USE - context is used internally. This method is not exposed
