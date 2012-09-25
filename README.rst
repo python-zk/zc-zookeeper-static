@@ -20,8 +20,13 @@ https://github.com/python-zk/zc-zookeeper-static
 Changelog
 =========
 
-3.4.3-6 (unreleased)
---------------------
+3.4.4 (unreleased)
+------------------
+
+Based on Zookeeper 3.4.4.
+
+- Include patch https://issues.apache.org/jira/browse/ZOOKEEPER-1398:
+  zkpython corrupts session passwords that contain nulls.
 
 
 3.4.3-5 (2012-08-23)
