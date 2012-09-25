@@ -20,7 +20,7 @@ https://github.com/python-zk/zc-zookeeper-static
 Changelog
 =========
 
-3.4.4 (unreleased)
+3.4.4 (2012-09-25)
 ------------------
 
 Based on Zookeeper 3.4.4.
