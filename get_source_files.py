@@ -18,10 +18,6 @@ def main():
         shutil.rmtree(os.path.join(here, 'src'))
     os.mkdir(os.path.join(here, 'src'))
     os.chdir(os.path.join(srcdir, 'src'))
-
-    shutil.copy(os.path.join(here, 'hashtable_itr.h'),
-                os.path.join('c', 'src', 'hashtable', 'hashtable_itr.h'))
-
     os.system("tar czf %s c" % os.path.join(here, 'c.tgz'))
     shutil.copy(os.path.join('c', 'LICENSE'), here)
     os.chdir(os.path.join('contrib', 'zkpython'))
