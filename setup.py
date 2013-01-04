@@ -21,6 +21,8 @@ import distutils.core
 import os
 import shutil
 import time
+import glob
+import sys
 
 
 def do_system(cmd):
@@ -77,6 +79,17 @@ else:
         sys.path.append('src')
 
     cmdclass.update(test=Test)
+
+# prepare c.tgz
+if len(glob.glob('c.tgz')) == 0:
+    archives = glob.glob('zookeeper-?.?.?.tar.gz')
+    if len(archives) == 0:
+        print("put zookeeper distribution in the root folder of this repo")
+        print("Download tar.gz from http://zookeeper.apache.org/releases.html#download")
+        sys.exit(-1)
+    archive = archives[0]
+    print("using zookeeper from %s" % archive)
+    os.system('python get_source_files.py ../%s' % archive)
 
 setup(
     author='Henry Robinson',
