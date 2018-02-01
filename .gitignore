@@ -1,9 +1,13 @@
+# Directories.
+/dist
+/src
+/zc_zookeeper_static.egg-info
+/zookeeper-sources
+
+# Files.
 /*.tar.gz
 /LICENSE
 /ORIGINAL-README
 /c.tgz
-/dist
 /pyzk_docstrings.h
-/src
-/zookeeper-sources
 /zookeeper.c
