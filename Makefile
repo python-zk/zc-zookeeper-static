@@ -1,4 +1,4 @@
-VERSION := 3.4.9
+VERSION := 3.4.10
 TARBALL := zookeeper-$(VERSION).tar.gz
 
 SRC = LICENSE ORIGINAL-README c.tgz pyzk_docstrings.h zookeeper.c zookeeper-sources
