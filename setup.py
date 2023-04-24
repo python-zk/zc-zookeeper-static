@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-version = '3.4.10'
+version = '3.4.13'
 
 import distutils.command.build_ext
 import distutils.core
@@ -24,7 +24,7 @@ import time
 
 
 def do_system(cmd):
-    print cmd
+    print(cmd)
     if os.system(cmd):
         raise SystemError("Failed: %s" % cmd)
 
@@ -34,7 +34,7 @@ class build_ext(distutils.command.build_ext.build_ext):
     def run(self):
         # Hack to build C sources first
         if os.path.exists('c'):
-            print "Removing old c directory"
+            print("Removing old c directory")
             shutil.rmtree('c')
         do_system("tar xzf c.tgz")
         os.utime("c/config.h.in", (time.time(), time.time()))
@@ -78,24 +78,28 @@ else:
 
     cmdclass.update(test=Test)
 
-setup(
-    author='Henry Robinson',
-    author_email='henry@cloudera.com',
-    license='Apache',
-    name='zc-zookeeper-static',
-    version=version,
-    long_description=open('README.rst').read(),
-    description='ZooKeeper Python bindings',
-    url='http://pypi.python.org/pypi/zc-zookeeper-static',
-    cmdclass=cmdclass,
-    test_suite='zookeepertests',
-    ext_modules=[
-        distutils.core.Extension(
-            "zookeeper",
-            sources=["zookeeper.c"],
-            include_dirs=["c/include",
-                          "c/generated"],
-            extra_objects=["c/.libs/libzookeeper_mt.a"],
-        )
-    ],
-)
+with open('README.rst') as rm:
+
+    setup(
+        author='Henry Robinson',
+        author_email='henry@cloudera.com',
+        license='Apache',
+        name='zc-zookeeper-static',
+        version=version,
+        long_description=rm.read(),
+        description='ZooKeeper Python bindings',
+        url='http://pypi.python.org/pypi/zc-zookeeper-static',
+        cmdclass=cmdclass,
+        test_suite='zookeepertests',
+        ext_modules=[
+            distutils.core.Extension(
+                "zookeeper",
+                define_macros = [('PY_MAJOR_VERSION', '3'),
+                                 ('PY_MINOR_VERSION', '6')],
+                sources=["zookeeper.c"],
+                include_dirs=["c/include",
+                            "c/generated"],
+                extra_objects=["c/.libs/libzookeeper_mt.a"],
+            )
+        ],
+    )

@@ -37,11 +37,11 @@ def main():
     f = open(
         os.path.join(here, 'src', 'zookeepertests', 'connection_test.py'),
         'w')
-    if ('handles = [ zookeeper.init(self.host) for i in xrange(63) ]'
+    if ('handles = [ zookeeper.init(self.host) for i in range(63) ]'
         in connection_test):
         connection_test = connection_test.replace(
-            'handles = [ zookeeper.init(self.host) for i in xrange(63) ]',
-            'handles = [ zookeeper.init(self.host) for i in xrange(9) ]')
+            'handles = [ zookeeper.init(self.host) for i in range(63) ]',
+            'handles = [ zookeeper.init(self.host) for i in range(9) ]')
     else:
         connection_test = connection_test.replace('testmanyhandles',
                                                   'disabledtestmanyhandles')
@@ -52,6 +52,9 @@ def main():
     shutil.copy('pyzk_docstrings.h', here)
     shutil.copy('zookeeper.c', here)
     os.chdir(here)
+
+    # Apply the patch for Python3
+    os.system("patch zookeeper.c zookeeper.c.python3.patch")
 
 if __name__ == '__main__':
     main()

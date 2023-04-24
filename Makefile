@@ -1,4 +1,4 @@
-VERSION := 3.4.10
+VERSION := 3.4.13
 TARBALL := zookeeper-$(VERSION).tar.gz
 
 SRC = LICENSE ORIGINAL-README c.tgz pyzk_docstrings.h zookeeper.c zookeeper-sources
@@ -17,7 +17,7 @@ $(SRC): $(TARBALL)
 	python get_source_files.py $(CURDIR)/$<
 
 $(TARBALL):
-	curl -O http://apache.mirrors.spacedump.net/zookeeper/zookeeper-$(VERSION)/zookeeper-$(VERSION).tar.gz
+	curl -O https://archive.apache.org/dist/zookeeper/zookeeper-$(VERSION)/zookeeper-$(VERSION).tar.gz
 
 .PHONY: clean
 clean:
